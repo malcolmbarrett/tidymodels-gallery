@@ -9,6 +9,7 @@ book:
   chapters:
     - index.qmd
     - chapter/visualize-decision-trees.qmd
+    - chapter/dealing-with-datetime.qmd
 
 bibliography: references.bib
 

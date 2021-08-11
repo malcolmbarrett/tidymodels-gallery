@@ -1,0 +1,45 @@
+# Dealing with datetime columns
+
+```{r}
+#| message: FALSE
+
+library(recipes)
+library(modeldata)
+
+data("Chicago")
+```
+
+This is what you get if you don't do anything to the `date` column.
+
+```{r}
+recipe(ridership ~ date, data = Chicago) %>%
+  prep() %>%
+  bake(new_data = NULL)
+```
+
+`step_date()` turns the a date column into 3 columns by default. Day of week `"dow"`, month `"month"`, and year `"year"`. `step_data()` keeps original columns by default, but can be removed by setting `keep_original_cols = FALSE`
+
+```{r}
+recipe(ridership ~ date, data = Chicago) %>%
+  step_date(date, keep_original_cols = FALSE) %>%
+  prep() %>%
+  bake(new_data = NULL)
+```
+
+you can specify `step_date()` to only return some features by using the `features` argument.
+
+```{r}
+recipe(ridership ~ date, data = Chicago) %>%
+  step_date(date, features = "dow", keep_original_cols = FALSE) %>%
+  prep() %>%
+  bake(new_data = NULL)
+```
+
+you can also get `label = FALSE` to have the features returned as numeric instead of factors.
+
+```{r}
+recipe(ridership ~ date, data = Chicago) %>%
+  step_date(date, label = FALSE, keep_original_cols = FALSE) %>%
+  prep() %>%
+  bake(new_data = NULL)
+```

@@ -2,7 +2,9 @@
 
 ## Classification Tree
 
-```{r, message=FALSE}
+```{r}
+#| message: FALSE
+
 library(tidymodels)
 library(palmerpenguins)
 library(rpart.plot)
