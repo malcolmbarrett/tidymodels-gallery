@@ -1,0 +1,20 @@
+[
+  {
+    "href": "index.html",
+    "title": "tidymodels Gallery",
+    "section": "",
+    "text": "Welcome!\nThis “book” is meant to contain patterns or “recipes” of various tidymodels tasks."
+  },
+  {
+    "href": "chapter/visualize-decision-trees.html#classification-tree",
+    "title": "1  Visualize Decision Trees",
+    "section": "1.1 Classification Tree",
+    "text": "library(tidymodels)\nlibrary(palmerpenguins)\nlibrary(rpart.plot)\n\nclass_tree_spec <- decision_tree() %>%\n  set_mode(\"classification\") %>%\n  set_engine(\"rpart\")\n\nrec_spec <- recipe(species ~ ., data = penguins)\n\nclass_tree_wf <- workflow() %>%\n  add_recipe(rec_spec) %>%\n  add_model(class_tree_spec)\n\nclass_tree_fit <- class_tree_wf %>%\n  fit(penguins)\n\nclass_tree_fit %>%\n  extract_fit_engine() %>%\n  rpart.plot(roundint = FALSE)"
+  },
+  {
+    "href": "chapter/visualize-decision-trees.html#regression-tree",
+    "title": "1  Visualize Decision Trees",
+    "section": "1.2 Regression Tree",
+    "text": "library(tidymodels)\nlibrary(palmerpenguins)\nlibrary(rpart.plot)\n\nreg_tree_spec <- decision_tree() %>%\n  set_mode(\"regression\") %>%\n  set_engine(\"rpart\")\n\nrec_spec <- recipe(body_mass_g ~ ., data = penguins)\n\nreg_tree_wf <- workflow() %>%\n  add_recipe(rec_spec) %>%\n  add_model(reg_tree_spec)\n\nreg_tree_fit <- reg_tree_wf %>%\n  fit(penguins)\n\nreg_tree_fit %>%\n  extract_fit_engine() %>%\n  rpart.plot(roundint = FALSE)"
+  }
+]

@@ -1,0 +1,51 @@
+# Visualize Decision Trees
+
+## Classification Tree
+
+```{r, message=FALSE}
+library(tidymodels)
+library(palmerpenguins)
+library(rpart.plot)
+
+class_tree_spec <- decision_tree() %>%
+  set_mode("classification") %>%
+  set_engine("rpart")
+
+rec_spec <- recipe(species ~ ., data = penguins)
+
+class_tree_wf <- workflow() %>%
+  add_recipe(rec_spec) %>%
+  add_model(class_tree_spec)
+
+class_tree_fit <- class_tree_wf %>%
+  fit(penguins)
+
+class_tree_fit %>%
+  extract_fit_engine() %>%
+  rpart.plot(roundint = FALSE)
+```
+
+## Regression Tree
+
+```{r}
+library(tidymodels)
+library(palmerpenguins)
+library(rpart.plot)
+
+reg_tree_spec <- decision_tree() %>%
+  set_mode("regression") %>%
+  set_engine("rpart")
+
+rec_spec <- recipe(body_mass_g ~ ., data = penguins)
+
+reg_tree_wf <- workflow() %>%
+  add_recipe(rec_spec) %>%
+  add_model(reg_tree_spec)
+
+reg_tree_fit <- reg_tree_wf %>%
+  fit(penguins)
+
+reg_tree_fit %>%
+  extract_fit_engine() %>%
+  rpart.plot(roundint = FALSE)
+```
